@@ -1,0 +1,96 @@
+@import "~bootstrap/scss/bootstrap";
+@import  url('https://fonts.googleapis.com/css?family=Creepster&display=swap');
+@import url('https://fonts.googleapis.com/css?family=VT323&display=swap');
+
+.wrapper {
+    min-height: 100vh;
+    padding: 20px;
+    background: rgb(32, 35, 41);
+    background-size: cover
+}
+
+.image-logo {
+    height: 180px
+  }
+
+.container-fluid {
+    border-radius: 10px;
+    margin-top: 1rem;
+    background-color: rgb(255, 255, 255)
+}
+
+.row {
+    overflow-y: scroll;
+    height: 480px
+}
+
+.row::-webkit-scrollbar { width: 0 !important }
+
+.card-deck {
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px
+}
+
+.card-deck:hover .card {
+    transform: rotateY(180deg)
+}
+
+.card {
+    border: 1px solid rgb(35, 35, 35);
+    box-shadow: 2px 2px 10px rgb(200, 200, 200);
+    transform-style: preserve-3d;
+    transition: all 0.5s linear;
+    background-color: rgb(35, 35, 35)
+}
+
+.card-body {
+    height: 200px
+}
+
+.face {
+    position: absolute;
+    backface-visibility: hidden
+}
+
+.back-face {
+    transform: rotateY(180deg)
+}
+
+.card-overlay {
+    background-color: rgba(35, 35, 35, 0.5);
+    z-index: 99;
+    padding: 10px;
+    width: 100%;
+    bottom: 40%;
+    position: absolute
+}
+
+.h1,
+h1 {
+    font-size: 25px;
+    font-weight: 400;
+    font-stretch: expanded;
+    font-family: monospace; 
+    color: rgb(255, 255, 255)
+}
+
+.h5,
+h5 {
+    font-size: 20px;
+    font-weight: 400;
+    font-stretch: expanded;
+    font-family: 'Creepster', cursive;
+    text-shadow: 0 0 5px rgb(0, 0, 0), 0 0 15px rgb(33, 218, 30);
+    color: rgb(105, 200, 236)
+}
+
+.p,
+p {
+    font-size: 15px;
+    font-weight: 400;
+    font-stretch: expanded;
+    font-family: 'Creepster', cursive;
+    text-shadow: 0 0 5px rgb(0, 0, 0), 0 0 15px rgb(33, 218, 30);
+    color: rgb(105, 200, 236)
+}
