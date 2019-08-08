@@ -46,6 +46,33 @@ function getRickandMortyCharacters(progress, url = 'https://rickandmortyapi.com/
     }).catch(reject));
 }
 
+// funcion que obtiene los episodios de la api de rick y morty
+function getRickandMortyEpisodes(progress, url = 'https://rickandmortyapi.com/api/episode', episodes = []) {
+  // crea una promesa para cada url
+  return new Promise((resolve, reject) => fetch(url)
+    // comprueba si hay respuesta
+    .then(response => {
+      if (response.status !== 200) {
+        throw `${response.status}: ${response.statusText}`;
+      }
+      //los datos de la respuesta se almacenan en data
+      response.json().then(data => {
+        //el array episodes almacena los datos del array episodes + los nuevos datos  
+        episodes = episodes.concat(data.results);
+        // si info.next no esta vacio en la respuesta se ejecuta nuevamente la funcion getRickandMortyEpisodes
+        if (data.info.next) {
+          //el array episodes iniciara con los valores que almaceno
+          progress && progress(episodes);
+          // la url cambiara por info.next el cual contiene la url de la siguiente pagina
+          getRickandMortyEpisodes(progress, data.info.next, episodes).then(resolve).catch(reject)
+        } else {
+          //el array episode almaceno todo los personajes de cada pagina de la api
+          resolve(episodes);
+        }
+      }).catch(reject);
+    }).catch(reject));
+}
+
 // funcion que creara el contenido y asigna los valores de characters a mostrar
 getRickandMortyCharacters()
   .then(characters => {
@@ -74,6 +101,7 @@ getRickandMortyCharacters()
                             the last time I appeared I was in ${character.location.name}.
                             </br>
                             character status... ${character.status}</p>
+                            <a href="episodes.html" class="btn btn-outline-info btn-block" role="button" onclick="getRickandMortyEpisodes()">has seen me</a>
                         </div>
                       </div>                          
                     </div>
@@ -84,3 +112,25 @@ getRickandMortyCharacters()
     contenido.innerHTML = salida;
   })
   .catch(console.error);
+
+ // funcion que creara el contenido y asigna los valores de episodes a mostrar
+getRickandMortyEpisodes()
+.then(episodes => {
+  // carga todos los episodios
+  const datos = document.querySelector('.datos');
+  let salida = '';
+  episodes.forEach(episode => {
+    salida +=`
+    
+      <tr>
+        <td>${episode.name}</td>
+        <td>${episode.episode}</td>
+        <td>${episode.air_date}</td>
+      </tr>
+    
+    `
+    
+  });
+  datos.innerHTML = salida;
+})
+.catch(console.error);
